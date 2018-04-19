@@ -1,0 +1,4 @@
+{
+	"ignore": ["public/*-out*"],
+	"watch": ["public"]
+}

@@ -5,8 +5,13 @@ class Profile extends React.Component {
 
     return (
       <div>
+        <h1>
+          hello
+        </h1>
         <p>
-          asdsasaa
+          {
+            `profile with id: ${id}`
+          }
         </p>
       </div>
     )
