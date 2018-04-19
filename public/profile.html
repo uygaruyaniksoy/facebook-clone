@@ -13,6 +13,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/library/v3/stable/stitch.min.js"></script>
+    <script>
+      var db;
+      var client;
+      var clientPromise = stitch.StitchClientFactory.create('facebook-server-fwavm');
+      clientPromise.then(cl => {
+        db = cl.service('mongodb', 'mongodb-atlas').db('facebook');
+        client = cl;
+      });
+    </script>
 </head>
 <body>
     <div id="root"></div>
