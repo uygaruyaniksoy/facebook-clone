@@ -5,9 +5,9 @@
   "repository": "https://github.com/GoogleCloudPlatform/nodejs-getting-started",
   "private": true,
   "scripts": {
-    "dev": "nodemon --exec npm start",
-    "babel": "babel public/profile.js > public/profile-out.js && babel public/main.js > public/main-out.js",
-    "prestart": "npm install && npm run babel",
+    "dev": "node_modules/.bin/nodemon --exec npm start",
+    "babel": "node_modules/.bin/babel public/profile.js > public/profile-out.js && node_modules/.bin/babel public/main.js > public/main-out.js",
+    "prestart": "npm run babel",
     "start": "node app.js",
     "e2e": "repo-tools test deploy",
     "test": "repo-tools test app",
