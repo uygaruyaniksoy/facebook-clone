@@ -14,15 +14,19 @@
 'use strict';
 
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-// [START hello_world]
-// Say hello!
-app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!');
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
+  res.status(200).sendFile(__dirname + '/public/main.html');
 });
-// [END hello_world]
+app.get('/:id', function (req, res) {
+  if (isNaN(req.params.id)) res.status(404).send("not cool!");
+  else res.status(200).sendFile(__dirname + '/public/profile.html');
+});
 
 if (module === require.main) {
   // [START server]
