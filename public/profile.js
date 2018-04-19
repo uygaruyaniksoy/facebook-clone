@@ -14,7 +14,6 @@ class Profile extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <div className="offset-2 col-8" style={{
