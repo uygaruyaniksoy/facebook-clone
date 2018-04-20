@@ -23,6 +23,9 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
   res.status(200).sendFile(__dirname + '/public/main.html');
 });
+app.get('/profile', function (req, res) {
+  res.status(200).sendFile(__dirname + '/public/profile.html');
+});
 app.get('/:id', function (req, res) {
   if (isNaN(req.params.id)) res.status(404).send("not cool!");
   else res.status(200).sendFile(__dirname + '/public/profile.html');

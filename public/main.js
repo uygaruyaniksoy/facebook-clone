@@ -171,7 +171,13 @@ class MainPage extends React.Component {
         <div className="col-6">
           {
             this.state.users.map(u => (
-              <a key={u.id} onClick={() => localStorage.setItem('facebook-clone-id', u.id)}>
+              <a
+                key={u.id}
+                onClick={() => {
+                  localStorage.setItem('facebook-clone-id', u.id);
+                  window.location.pathname="profile";
+                }}
+              >
                 <div className="row" style={{ cursor: 'pointer', margin: 5 }}>
                   <img src={u.image} style={{ width: 50, height: 50 }}/>
                   <h4>

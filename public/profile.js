@@ -3,13 +3,15 @@ const id = parseInt(window.location.pathname.substr(1));
 class Profile extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      user: {},
+    };
   }
 
   componentWillMount() {
     client.login().then(() => {
-      db.collection('users').find({name: "Uygar"}).limit(100).execute().then((a) => {debugger;});
-
-      db.collection('users').find({ }).limit(100).execute().then((a) => {debugger;});
+      db.collection('users').find({id: parseInt(localStorage.getItem('facebook-clone-id'))}).limit(100).execute().then((a) => this.setState({ user: a[0] }));
     });
   }
 
@@ -20,14 +22,6 @@ class Profile extends React.Component {
           marginTop: 100,
           backgroundColor: 'red',
         }}>
-          <h2>
-            hello
-          </h2>
-          <p>
-            {
-              `profile with id: ${id}`
-            }
-          </p>
           <div className="row">
             <div
               className="col-4"
@@ -41,11 +35,9 @@ class Profile extends React.Component {
                 }}
               >
                 <h2>
-                  name surname
+                  {`${this.state.user.name} ${this.state.user.surname}`}
                 </h2>
-                <h2>
-                  profile image
-                </h2>
+                <img src={this.state.user.image} style={{ width: 150, height: 150 }}/>
               </div>
               <div
                 style={{
