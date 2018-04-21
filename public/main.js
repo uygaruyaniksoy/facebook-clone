@@ -33,18 +33,52 @@ const initUsers = () => {
     {likes: 0, url:"https://images.pexels.com/photos/236636/pexels-photo-236636.jpeg?auto=compress&cs=tinysrgb&h=350"},
   ];
 
+  const comments = [
+    {likes: 0, text: "A little learning is a dangerous thing."},
+    {likes: 0, text: "A man who asks is a fool for five minutes. A man who never asks is a fool for life."},
+    {likes: 0, text: "A moment's insight is sometimes worth a life's experience."},
+    {likes: 0, text: "A penny for your thoughts."},
+    {likes: 0, text: "Never mistake a single mistake with a final mistake."},
+    {likes: 0, text: "Tell me and I forget. Teach me and I remember. Involve me and I learn."},
+    {likes: 0, text: "Learn as if you were to live forever."},
+    {likes: 0, text: "He who learns but does not think, is lost! He who thinks but does not learn is in great danger."},
+    {likes: 0, text: "You don't learn to walk by following rules. You learn by doing, and by falling over."},
+    {likes: 0, text: "Your most unhappy customers are your greatest source of learning."},
+    {likes: 0, text: "I never learned from a man who agreed with me."},
+    {likes: 0, text: "I am always ready to learn although I do not always like being taught."},
+    {likes: 0, text: "There is no end to education. It is not that you read a book, pass an examination, and finish with education. The whole of life, from the moment you are born to the moment you die, is a process of learning."},
+    {likes: 0, text: "You can teach a student a lesson for a day; but if you can teach him to learn by creating curiosity, he will continue the learning process as long as he lives."},
+    {likes: 0, text: "I am learning all the time. The tombstone will be my diploma."},
+    {likes: 0, text: "The most useful piece of learning for the uses of life is to unlearn what is untrue."},
+    {likes: 0, text: "The purpose of learning is growth, and our minds, unlike our bodies, can continue growing as we continue to live."},
+    {likes: 0, text: "Every act of conscious learning requires the willingness to suffer an injury to one's self-esteem. That is why young children, before they are aware of their own self-importance, learn so easily."},
+    {likes: 0, text: "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn."},
+    {likes: 0, text: "The man who is too old to learn was probably always too old to learn."},
+    {likes: 0, text: "Developing a desire to learn is the kindling point of all classroom achievement."},
+    {likes: 0, text: "Every student can learn, just not on the same day, or the same way."},
+    {likes: 0, text: "Expecting all children the same age to learn from the same materials is like expecting all children the same age to wear the same size clothing."},
+    {likes: 0, text: "If learning is an act of exploration, then technology equips the explorer for the journey of a lifetime."},
+    {likes: 0, text: "It is paradoxical that many educators and parents still differentiate between a time for learning and a time for play without seeing the vital connection between them."},
+    {likes: 0, text: "Teenagers learn best by doing things, they learn best in teams and they learn best by doing things for real - all the opposite of what mainstream schooling actually does."},
+    {likes: 0, text: "Learning is not attained by chance. It must be sought for with ardor and attended to with diligence."},
+    {likes: 0, text: "Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young. The greatest thing in life is to keep your mind young."},
+    {likes: 0, text: "Never let formal education get in the way of your learning."},
+    {likes: 0, text: "In a time of drastic change it is the learners who inherit the future. The learned usually find themselves equipped to live in a world that no longer exists."},
+  ];
+
   let i = 0;
+  let j = 0;
   let users = [
-    {id: Math.random()*100000 | 0, name: 'Preston', surname: 'Laver', image: {likes: 0, url: 'https://orig00.deviantart.net/23a2/f/2010/352/f/7/headshotid_by_bokogreat_stock-d355xf3.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Delilah', surname: 'Nowlin', image: {likes: 0, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFHlQOv9gOKhTWjZEMPYUB15eAmcWEjQE9WStjuDX19cM5ZoZf'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Casandra', surname: 'Mckell', image: {likes: 0, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV31p-oGNXwsOpNRAKcMq4HDPER9asurPxP_T4BjA6s1snffd-aw'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Patty', surname: 'Tejeda', image: {likes: 0, url: 'https://media.istockphoto.com/photos/asian-women-profile-picture-id139662784?k=6&m=139662784&s=612x612&w=0&h=GhwIW_Q3TIhdFgrVlbg7sMtLXzRNmaiLzKtjIQhX_sE='}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Evelia', surname: 'Peterka', image: {likes: 0, url: 'https://s3.eu-central-1.amazonaws.com/artistarea.gallereplay.com/production/user_9/picture_2405201614728.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Sona', surname: 'Girardi', image: {likes: 0, url: 'https://orig00.deviantart.net/b682/f/2013/135/4/3/profile_picture_by_mellodydoll_stock-d65fbf8.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Ashton', surname: 'Every', image: {likes: 0, url: 'http://actionsportsgames.com.au/cms/wp-content/uploads/2014/11/profile_picture_by_naivety_stock-d5x8lbn.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Jessi', surname: 'Swing', image: {likes: 0, url: 'https://images.pexels.com/photos/736715/pexels-photo-736715.jpeg?auto=compress&cs=tinysrgb&h=350'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Keneth', surname: 'Eder', image: {likes: 0, url: 'https://img00.deviantart.net/038e/i/2010/150/b/0/me_2010_by_axy_stock.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], },
-    {id: Math.random()*100000 | 0, name: 'Nannie', surname: 'Petrick', image: {likes: 0, url: 'https://orig00.deviantart.net/b893/f/2011/227/f/6/profile_picture_by_aehireiel_stock-d46o5ls.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i], ], }
+    {id: Math.random()*100000 | 0, name: 'Preston', surname: 'Laver', image: {likes: 0, url: 'https://orig00.deviantart.net/23a2/f/2010/352/f/7/headshotid_by_bokogreat_stock-d355xf3.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Delilah', surname: 'Nowlin', image: {likes: 0, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFHlQOv9gOKhTWjZEMPYUB15eAmcWEjQE9WStjuDX19cM5ZoZf'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Casandra', surname: 'Mckell', image: {likes: 0, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV31p-oGNXwsOpNRAKcMq4HDPER9asurPxP_T4BjA6s1snffd-aw'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Patty', surname: 'Tejeda', image: {likes: 0, url: 'https://media.istockphoto.com/photos/asian-women-profile-picture-id139662784?k=6&m=139662784&s=612x612&w=0&h=GhwIW_Q3TIhdFgrVlbg7sMtLXzRNmaiLzKtjIQhX_sE='}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Evelia', surname: 'Peterka', image: {likes: 0, url: 'https://s3.eu-central-1.amazonaws.com/artistarea.gallereplay.com/production/user_9/picture_2405201614728.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Sona', surname: 'Girardi', image: {likes: 0, url: 'https://orig00.deviantart.net/b682/f/2013/135/4/3/profile_picture_by_mellodydoll_stock-d65fbf8.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Ashton', surname: 'Every', image: {likes: 0, url: 'http://actionsportsgames.com.au/cms/wp-content/uploads/2014/11/profile_picture_by_naivety_stock-d5x8lbn.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Jessi', surname: 'Swing', image: {likes: 0, url: 'https://images.pexels.com/photos/736715/pexels-photo-736715.jpeg?auto=compress&cs=tinysrgb&h=350'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Keneth', surname: 'Eder', image: {likes: 0, url: 'https://img00.deviantart.net/038e/i/2010/150/b/0/me_2010_by_axy_stock.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i++], ], comments: [ comments[j++], comments[j++], comments[j++], ], },
+    {id: Math.random()*100000 | 0, name: 'Nannie', surname: 'Petrick', image: {likes: 0, url: 'https://orig00.deviantart.net/b893/f/2011/227/f/6/profile_picture_by_aehireiel_stock-d46o5ls.jpg'}, friends: [], pictures: [ pictures[i++], pictures[i++], pictures[i], ], comments: [ comments[j++], comments[j++], comments[j], ], }
   ];
   Array(40).fill().forEach(() => { // 40 friendships
     const f = Math.random()*10 | 0;
@@ -256,8 +290,8 @@ class MainPage extends React.Component {
       <div>
         <div className="offset-2 col-8" style={{
           marginTop: 100,
-          backgroundColor: 'red',
-          height: 700,
+          backgroundColor: '#abc',
+          height: innerHeight - 100,
         }}>
           <h3>
             Choose an action from below

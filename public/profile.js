@@ -8,8 +8,10 @@ class Profile extends React.Component {
       user: {
         image: {},
         friends: [],
+        comments: [],
       },
       visitor: !isNaN(id),
+      dropdown: localStorage.getItem('facebook-clone-dropdown') == "true",
     };
 
     this.setPP = this.setPP.bind(this);
@@ -19,6 +21,9 @@ class Profile extends React.Component {
     this.addFriend = this.addFriend.bind(this);
     this.likePP = this.likePP.bind(this);
     this.likePicture = this.likePicture.bind(this);
+    this.likeComment = this.likeComment.bind(this);
+    this.uploadComment = this.uploadComment.bind(this);
+    this.setBackgroundColor = this.setBackgroundColor.bind(this);
   }
 
   componentWillMount() {
@@ -30,6 +35,7 @@ class Profile extends React.Component {
     client.login().then(() => {
       db.collection('users').find().limit(100).execute().then((users) => this.setState(
         { users },
+        this.setBackgroundColor,
       ));
     });
   }
@@ -70,6 +76,20 @@ class Profile extends React.Component {
     ).then(this.fetchSelf);
   }
 
+  likeComment(p) {
+    db.collection('users').updateOne(
+      {id: this.state.user.id},
+      {"$set": {comments: this.state.user.comments.map((a) => a.text === p.text ? Object.assign({}, p, {likes: p.likes  + 1}) : a)}}
+    ).then(this.fetchSelf);
+  }
+
+  uploadComment() {
+    db.collection('users').updateOne(
+      {id: this.state.user.id},
+      {"$set": {comments: this.state.user.comments.concat({likes: 0, text: this.state.commentText})}}
+    ).then(this.fetchSelf);
+  }
+
   setPP(p) {
     db.collection('users').updateOne(
       {id: this.state.user.id},
@@ -91,6 +111,18 @@ class Profile extends React.Component {
     ).then(this.fetchSelf);
   }
 
+  setBackgroundColor() {
+    return; // calc average color of pp
+    let img = document.getElementById('pp');
+    let canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+    let pixelData = canvas.getContext('2d').getImageData(0, 0, img.width, img.height).data;
+
+    this.backgroundColor = "#ccc";
+  }
+
   render() {
     return (
       <div>
@@ -102,7 +134,7 @@ class Profile extends React.Component {
             <div
               className="col-4"
               style={{
-                backgroundColor: 'blue'
+                backgroundColor: this.backgroundColor || 'blue'
               }}
             >
               <div
@@ -113,7 +145,7 @@ class Profile extends React.Component {
                 <h2>
                   {`${this.state.user.name} ${this.state.user.surname}`}
                 </h2>
-                <img src={this.state.user.image.url} style={{ width: 150, height: 150 }}/>
+                <img id="pp" src={this.state.user.image.url} style={{ width: 150, height: 150 }}/>
               </div>
               <div
                 style={{
@@ -177,17 +209,18 @@ class Profile extends React.Component {
                 }
               </div>
               <br />
-              <div
-                style={{
-                  height: 200,
-                }}
-              >
+              <div>
                 <div className="row">
                   <h2 className="col-4">
                     Friends
                   </h2>
-                  <h2 className="col-4">
-                  </h2>
+                  <h6 className="col-4">
+                      Enchanced View
+                    <label className="switch">
+                      <input checked={this.state.dropdown} type="checkbox" onChange={() => this.setState({ dropdown: !this.state.dropdown }, () => localStorage.setItem('facebook-clone-dropdown', this.state.dropdown))}></input>
+                      <span className="slider round"></span>
+                    </label>
+                  </h6>
                   {
                     !this.state.visitor &&
                     <button
@@ -211,6 +244,7 @@ class Profile extends React.Component {
                 </div>
                 <div className="row">
                   {
+                    this.state.dropdown &&
                     this.state.user.friends.map((f, i) => (
                       <div
                         key={i}
@@ -227,22 +261,94 @@ class Profile extends React.Component {
                       </div>
                     ))
                   }
+                  {
+                    !this.state.dropdown &&
+                    <div className="dropdown">
+                      <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Friend List
+                      </button>
+                      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {
+                          this.state.user.friends.map((f, i) => (
+                            <a
+                              key={i}
+                              className="dropdown-item"
+                              href="#"
+                            >
+                              <div
+                                style={{
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => {
+                                  window.location.pathname = `/${f.id}`
+                                }}
+                              >
+                                <img src={f.image && f.image.url} alt="" style={{ height: 40 }}/>
+                                <h4>{`${f.name} ${f.surname}`}</h4>
+                              </div>
+                            </a>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
             <div
               className="col-8"
               style={{
-                backgroundColor: 'green',
-                height: 100,
+                backgroundColor: '#abe',
               }}
             >
-              <h4>
-                put comments
-              </h4>
-              <p>
-                all comments
-              </p>
+              {
+                !this.state.visitor &&
+                  <div>
+                    <h4>
+                      add a comment
+                    </h4>
+                    <div className="form-group">
+                      <label htmlFor="comment">Comment:</label>
+                      <textarea className="form-control" rows="2" id="comment" onChange={(e) => this.setState({ commentText: e.target.value })}></textarea>
+                    </div>
+                    <button onClick={() => this.uploadComment()} className="btn btn-success">
+                      add comment
+                    </button>
+                  </div>
+              }
+                <hr/>
+                <h4>
+                  all comments
+                </h4>
+              {
+                this.state.user.comments.reduce((c, i) => [i].concat(c), []).map((a, i) => (
+                  <div className="media" key={i}>
+                    <div className="media-left">
+                      <img src={this.state.user.image.url} className="media-object" style={{ width: 60 }}></img>
+                    </div>
+                    <div className="media-body">
+                      <h4 className="media-heading">{`${this.state.user.name} ${this.state.user.surname}`}</h4>
+                      <div className="row">
+                        <p className="col-8">
+                          {
+                            a.text
+                          }
+                        </p>
+                        <p className="col-4">
+                          <div className="alert alert-success col-12" style={{ padding: '0px 20px' }}>
+                            {
+                              `${a.likes} like(s)`
+                            }
+                            <button className="btn btn-success col-6" onClick={() => this.likeComment(a)}>
+                              Like
+                            </button>
+                          </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>
