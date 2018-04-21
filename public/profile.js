@@ -9,6 +9,7 @@ class Profile extends React.Component {
         image: {},
         friends: [],
       },
+      visitor: !isNaN(id),
     };
 
     this.setPP = this.setPP.bind(this);
@@ -34,7 +35,7 @@ class Profile extends React.Component {
   fetchSelf() {
     client.login().then(() => {
       db.collection('users')
-        .find({id: parseInt(localStorage.getItem('facebook-clone-id'))})
+        .find({id: this.state.visitor ? id : parseInt(localStorage.getItem('facebook-clone-id'))})
         .limit(100)
         .execute()
         .then((a) => a[0] && this.setState(
@@ -131,30 +132,33 @@ class Profile extends React.Component {
                           </button>
                         </div>
                         {
-                          this.state.hover === p && <button style={{ marginTop: '-1rem' }} className="btn btn-success" onClick={() => this.setPP(p)}>set pp</button>
+                          !this.state.visitor && this.state.hover === p && <button style={{ marginTop: '-1rem' }} className="btn btn-success" onClick={() => this.setPP(p)}>set pp</button>
                         }
                       </div>
                     ))
                   }
                 </div>
                 <br />
-                <button
-                  className="col-12 btn btn-success"
-                  onClick={() => this.setState(
-                    {
-                      modal: {
-                        callback: () => this.uploadPicture(),
-                        heading: 'Upload Picture',
-                        text: 'Please add the link of the picture you want to upload',
-                        inputBox: true,
-                        action: 'Upload',
+                {
+                  !this.state.visitor &&
+                  <button
+                    className="col-12 btn btn-success"
+                    onClick={() => this.setState(
+                      {
+                        modal: {
+                          callback: () => this.uploadPicture(),
+                          heading: 'Upload Picture',
+                          text: 'Please add the link of the picture you want to upload',
+                          inputBox: true,
+                          action: 'Upload',
+                        },
                       },
-                    },
-                    () => $('#myModal').modal('show')
-                  )}
-                >
-                  add picture
-                </button>
+                      () => $('#myModal').modal('show')
+                    )}
+                  >
+                    add picture
+                  </button>
+                }
               </div>
               <br />
               <div
@@ -168,28 +172,40 @@ class Profile extends React.Component {
                   </h2>
                   <h2 className="col-4">
                   </h2>
-                  <button
-                    className="btn btn-success col-4"
-                    onClick={() => this.setState(
-                      {
-                        modal: {
-                          callback: () => this.addFriend(),
-                          heading: 'Add Friend',
-                          text: 'Please select whom you want to add as a friend',
-                          userList: true,
-                          action: 'Add Friend',
+                  {
+                    !this.state.visitor &&
+                    <button
+                      className="btn btn-success col-4"
+                      onClick={() => this.setState(
+                        {
+                          modal: {
+                            callback: () => this.addFriend(),
+                            heading: 'Add Friend',
+                            text: 'Please select whom you want to add as a friend',
+                            userList: true,
+                            action: 'Add Friend',
+                          },
                         },
-                      },
-                      () => $('#myModal').modal('show')
-                    )}
-                  >
-                    add friend
-                  </button>
+                        () => $('#myModal').modal('show')
+                      )}
+                    >
+                      add friend
+                    </button>
+                  }
                 </div>
                 <div className="row">
                   {
                     this.state.user.friends.map((f, i) => (
-                      <div key={i} className="col-4 card">
+                      <div
+                        key={i}
+                        className="col-4 card"
+                        style={{
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          window.location.pathname = `/${f.id}`
+                        }}
+                      >
                         <img src={f.image && f.image.url} alt="" style={{ width: 'inherit' }}/>
                         <h4>{`${f.name} ${f.surname}`}</h4>
                       </div>
