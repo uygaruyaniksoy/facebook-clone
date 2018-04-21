@@ -17,6 +17,8 @@ class Profile extends React.Component {
     this.fetchUsers = this.fetchUsers.bind(this);
     this.uploadPicture = this.uploadPicture.bind(this);
     this.addFriend = this.addFriend.bind(this);
+    this.likePP = this.likePP.bind(this);
+    this.likePicture = this.likePicture.bind(this);
   }
 
   componentWillMount() {
@@ -52,6 +54,20 @@ class Profile extends React.Component {
           )
         ));
     });
+  }
+
+  likePP() {
+    db.collection('users').updateOne(
+      {id: this.state.user.id},
+      {"$set": {image: Object.assign({}, this.state.user.image, {likes: this.state.user.image.likes + 1})}}
+    ).then(this.fetchSelf);
+  }
+
+  likePicture(p) {
+    db.collection('users').updateOne(
+      {id: this.state.user.id},
+      {"$set": {pictures: this.state.user.pictures.map((a) => a.url === p.url ? Object.assign({}, p, {likes: p.likes  + 1}) : a)}}
+    ).then(this.fetchSelf);
   }
 
   setPP(p) {
@@ -114,7 +130,7 @@ class Profile extends React.Component {
                       {
                         `${this.state.user.image.likes} like(s)`
                       }
-                      <button className="btn btn-success col-6">
+                      <button className="btn btn-success col-6" onClick={() => this.likePP()}>
                         Like
                       </button>
                     </div>
@@ -127,7 +143,7 @@ class Profile extends React.Component {
                           {
                             `${p.likes} like(s)`
                           }
-                          <button className="btn btn-success col-6">
+                          <button className="btn btn-success col-6" onClick={() => this.likePicture(p)}>
                             Like
                           </button>
                         </div>
