@@ -31,11 +31,15 @@ class Profile extends React.Component {
     this.fetchUsers();
   }
 
+  componentDidUpdate() {
+    console.log(123321);
+    this.setBackgroundColor();
+  }
+
   fetchUsers() {
     client.login().then(() => {
       db.collection('users').find().limit(100).execute().then((users) => this.setState(
         { users },
-        this.setBackgroundColor,
       ));
     });
   }
@@ -100,7 +104,10 @@ class Profile extends React.Component {
   uploadPicture() {
     db.collection('users').updateOne(
       {id: this.state.user.id},
-      {"$set": {pictures: this.state.user.pictures.concat(this.state.imageLink)}}
+      {"$set": {pictures: this.state.user.pictures.concat({
+        url: this.state.imageLink,
+        likes: 0,
+      })}}
     ).then(this.fetchSelf);
   }
 
@@ -112,15 +119,30 @@ class Profile extends React.Component {
   }
 
   setBackgroundColor() {
-    return; // calc average color of pp
+    return;
+    // it was just an experiment which failed
+    this.backgroundColor = "#ccc";
+
     let img = document.getElementById('pp');
+    var UimageObj = new Image();
+    UimageObj.src = img.src;
     let canvas = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
-    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+    canvas.getContext('2d').drawImage(UimageObj, 0, 0, img.width, img.height);
     let pixelData = canvas.getContext('2d').getImageData(0, 0, img.width, img.height).data;
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    for (var i = 0; i < pixelData.length; i+=4) {
+      r += pixelData[i+0];
+      g += pixelData[i+1];
+      b += pixelData[i+2];
+    }
+    r /= img.width * img.height;
+    g /= img.width * img.height;
+    b /= img.width * img.height;
 
-    this.backgroundColor = "#ccc";
   }
 
   render() {

@@ -198,7 +198,12 @@ class MainPage extends React.Component {
 
         <button
           onClick={() => {
-            db.collection('users').insertOne(Object.assign({}, this.state.addState, {id: Math.random()*100000 | 0})).then(this.fetchUsers);
+            db.collection('users').insertOne(Object.assign({
+              friends: [],
+              comments: [],
+              pictures: [],
+              image: { likes: 0, url: 'https://www.worldofbuzz.com/wp-content/uploads/2015/04/noprofilemale.gif' }
+            }, this.state.addState, {id: Math.random()*100000 | 0})).then(this.fetchUsers);
           }}
           style={{
             marginTop: 50,
