@@ -20,7 +20,7 @@
       var client;
       var clientPromise = stitch.StitchClientFactory.create('facebook-server-fwavm');
       clientPromise.then(cl => {
-        db = cl.service('mongodb', 'mongodb-atlas').db('facebook');
+        db = cl.service('mongodb', 'mongodb-atlas').db('facebook-new');
         client = cl;
       });
     </script>
