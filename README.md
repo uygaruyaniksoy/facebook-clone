@@ -1,62 +1,34 @@
-# 1 - Hello world
+This is my ceng495 hw2 application
 
-![Build Status][ci-badge]
+url: https://facebook-clone-ceng495.herokuapp.com/
+usage:
+from the main page you can choose 3 actions by clicking their button.
 
-This folder contains the sample code for the [Hello world][step-1]
-tutorial. Please refer to the tutorial for instructions on configuring, running,
-and deploying this sample.
+select a user from log in tab to log as that user.
 
-[ci-badge]: https://storage.googleapis.com/nodejs-getting-started-tests-badges/1-tests.svg
-[step-1]: https://cloud.google.com/nodejs/getting-started/hello-world
+after logging in you can do:
+*select a profile picture from your pictures by hovering that picture and a button will appear so you can set it pp
+*you can like any picture
+*you can comment
+*you can like comments
+*add pictures with the given link
+*add friends
+*look at friends
+*and by clicking over a friends picture you can navgate to his/her page
 
-# Simple instructions
 
-1.  Install [Node.js](https://nodejs.org/en/).
+technologies used:
 
-    * Optional: Install [Yarn](https://yarnpkg.com/).
+*node environment
+*express.js for routing through pages
+*react.js for better ui developing experience
+*bootstrap for better looking ui components
+*jquery and popper.js which is a bootstrap dependency
+*babel.js to transpile react files down to es5 code so that the compiled code will run on almost any browser
+*stitch.js for db connections to atlas mongo cloud dbaas
+*nodemon for autodetecting differences and recompiling
 
-1.  Install [git](https://git-scm.com/).
-1.  Create a [Google Cloud Platform project](https://console.cloud.google.com).
-1.  Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
-
-    * After downloading the SDK, initialize it:
-
-            gcloud init
-
-1.  Clone the repository:
-
-        git clone https://github.com/GoogleCloudPlatform/nodejs-getting-started.git
-
-1.  Change directory:
-
-        cd nodejs-getting-started/1-hello-world
-
-1.  Install dependencies using NPM or Yarn:
-
-    * Using NPM:
-
-            npm install
-
-    * Using Yarn:
-
-            yarn install
-
-1.  Start the app using NPM or Yarn:
-
-    * Using NPM:
-
-            npm start
-
-    * Using Yarn:
-
-            yarn start
-
-1.  View the app at [http://localhost:8080](http://localhost:8080).
-
-1.  Stop the app by pressing `Ctrl+C`.
-
-1.  Deploy the app:
-
-        gcloud app deploy
-
-1.  View the deployed app at [https://YOUR_PROJECT_ID.appspot.com](https://YOUR_PROJECT_ID.appspot.com).
+to try locally:(assuming you have node and nodemon globally installed)
+-npm i
+-npm run dev
+-locate to localhost:8081
